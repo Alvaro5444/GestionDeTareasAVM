@@ -1,0 +1,67 @@
+package com.example.basededatosroom.activity;
+
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+
+import com.example.basededatosroom.DataBase.AppDataBase;
+import com.example.basededatosroom.R;
+import com.example.basededatosroom.entities.Categoria;
+import com.google.android.material.textfield.TextInputEditText;
+
+public class AgregarCategoria extends AppCompatActivity {
+
+    Toolbar toolbar;
+
+    EditText etNombre, etDescripcion;
+
+    Button btnguardarCategoria;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_agregar_categoria);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
+
+        toolbar = findViewById(R.id.toolbaragregarcategoria);
+        toolbar.setTitle("Agregar Categoria");
+        setSupportActionBar(toolbar);
+
+        if (getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
+
+        toolbar.setNavigationOnClickListener(v -> finish());
+
+        etNombre = findViewById(R.id.etNombre);
+        etDescripcion = findViewById(R.id.etDescripcion);
+
+        btnguardarCategoria = findViewById(R.id.btnGuardarCategoria);
+        btnguardarCategoria.setOnClickListener(v -> {
+            String nombre = etNombre.getText().toString();
+            String descripcion = etDescripcion.getText().toString();
+        if (!nombre.isEmpty() && !descripcion.isEmpty()) {
+            AppDataBase appDataBase = AppDataBase.getInstance(this);
+            appDataBase.categoriadao().insertarCategoria(new Categoria(descripcion, nombre, 0));
+            finish();
+        }else{
+            Toast.makeText(this, "Rellena todos los campos", Toast.LENGTH_SHORT).show();
+
+        }
+        });
+    }
+}
