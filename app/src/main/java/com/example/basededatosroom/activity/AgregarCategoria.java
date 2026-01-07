@@ -36,10 +36,12 @@ public class AgregarCategoria extends AppCompatActivity {
             return insets;
         });
 
+        // Configuramos el toolbar
         toolbar = findViewById(R.id.toolbaragregarcategoria);
         toolbar.setTitle("Agregar Categoria");
         setSupportActionBar(toolbar);
 
+        //Añadimos la flecha para atras
         if (getSupportActionBar() != null){
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -50,6 +52,7 @@ public class AgregarCategoria extends AppCompatActivity {
         etNombre = findViewById(R.id.etNombre);
         etDescripcion = findViewById(R.id.etDescripcion);
 
+        //Configuramos el boton de guardar y controlamos los campos que esten rellenos
         btnguardarCategoria = findViewById(R.id.btnGuardarCategoria);
         btnguardarCategoria.setOnClickListener(v -> {
             String nombre = etNombre.getText().toString();

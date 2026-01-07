@@ -23,8 +23,15 @@ public abstract class AppDataBase extends RoomDatabase {
     public abstract CategoriaDAO categoriadao();
     public abstract TareaDAO tareadao();
 
+    // Creamos la instancia de la base de datos
     private static volatile AppDataBase INSTANCE;
 
+    /**
+     * Metodo para obtener la instancia de la base de datos para que se cree solo una vez
+     *
+     * @param context
+     * @return
+     */
     public static AppDataBase getInstance(Context context) {
         if (INSTANCE == null) {
             synchronized (AppDataBase.class) {

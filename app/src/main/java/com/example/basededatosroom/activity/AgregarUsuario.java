@@ -37,10 +37,12 @@ public class AgregarUsuario extends AppCompatActivity {
             return insets;
         });
 
+        //Configuramos el toolbar
         toolbar = findViewById(R.id.toolbaragregarusuario);
         toolbar.setTitle("Agregar Usuario");
         setSupportActionBar(toolbar);
 
+        //Configuramos la flecha para atras
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -51,6 +53,7 @@ public class AgregarUsuario extends AppCompatActivity {
         etNombre = findViewById(R.id.etNombre);
         etEmail = findViewById(R.id.etEmail);
 
+        //Configuramos el boton de guardar y controlamos los campos que esten rellenos
         btnguardar = findViewById(R.id.btnGuardarUsuario);
         btnguardar.setOnClickListener(v -> {
             String nombre = etNombre.getText().toString();

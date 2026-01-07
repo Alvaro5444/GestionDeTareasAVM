@@ -27,9 +27,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Configuramos el toolbar
         toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle("Gestión de Tareas");
         setSupportActionBar(toolbar);
 
+        //Configuramos los botones para ir a las pantallas de listar usuario, listar categoria y listar tareas
         btnuser = findViewById(R.id.buttonuser);
 
         btnuser.setOnClickListener(v -> {

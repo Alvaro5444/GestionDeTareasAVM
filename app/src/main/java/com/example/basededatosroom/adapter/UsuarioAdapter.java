@@ -19,6 +19,9 @@ public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.UsuarioV
     private List<Usuario> listaUsuarios;
     private OnUsuarioClickListener listener;
 
+    /**
+     * Interfaz para el click en el botón de eliminar
+     */
     public interface OnUsuarioClickListener {
         void onEliminarClick(int position);
     }
@@ -28,6 +31,13 @@ public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.UsuarioV
         this.listener = listener;
     }
 
+    /**
+     * Metodo para crear el view holder
+     * @param parent   The ViewGroup into which the new View will be added after it is bound to
+     *                 an adapter position.
+     * @param viewType The view type of the new View.
+     * @return
+     */
     @NonNull
     @Override
     public UsuarioViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -35,6 +45,13 @@ public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.UsuarioV
         return new UsuarioViewHolder(view, listener);
     }
 
+    /**
+     * Metodo para actualizar el view holder
+     *
+     * @param holder   The ViewHolder which should be updated to represent the contents of the
+     *                 item at the given position in the data set.
+     * @param position The position of the item within the adapter's data set.
+     */
     @Override
     public void onBindViewHolder(@NonNull UsuarioViewHolder holder, int position) {
         Usuario usuario = listaUsuarios.get(position);
@@ -43,15 +60,29 @@ public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.UsuarioV
         holder.tvEmail.setText(usuario.getEmail());
     }
 
+    /**
+     * Metodo para obtener el tamaño de la lista
+     *
+     * @return devolvemos el tamanio de la lista
+     */
     @Override
     public int getItemCount() {
         return listaUsuarios.size();
     }
 
+    /**
+     * Clase para configurar el view holder
+     */
     public static class UsuarioViewHolder extends RecyclerView.ViewHolder {
         TextView tvId, tvNombre, tvEmail;
         ImageButton btnEliminar;
 
+        /**
+         * Constructor para el view holder
+         *
+         * @param itemView
+         * @param listener
+         */
         public UsuarioViewHolder(@NonNull View itemView, OnUsuarioClickListener listener) {
             super(itemView);
             tvId = itemView.findViewById(R.id.tvIdUsuario);
@@ -59,6 +90,7 @@ public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.UsuarioV
             tvEmail = itemView.findViewById(R.id.tvcorreouser);
             btnEliminar = itemView.findViewById(R.id.btnEliminarUsuario);
 
+            //Configuramos el click en el boton de eliminar
             btnEliminar.setOnClickListener(v -> {
                 if (listener != null) {
                     int position = getAdapterPosition();

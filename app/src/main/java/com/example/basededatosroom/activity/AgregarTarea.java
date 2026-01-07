@@ -46,10 +46,12 @@ public class AgregarTarea extends AppCompatActivity {
             return insets;
         });
 
+        //Configuramos el toolbar
         toolbar = findViewById(R.id.toolbaragregartarea);
         toolbar.setTitle("Agregar Tarea");
         setSupportActionBar(toolbar);
 
+        //Configuramos la flecha del toolbar para ir para atras
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -69,6 +71,7 @@ public class AgregarTarea extends AppCompatActivity {
         etFecha.setClickable(true);
         etFecha.setOnClickListener(v -> mostrarDatePicker());
 
+        //Configuramos la base de datos
         appDataBase = AppDataBase.getInstance(this);
 
         obtenerUsuarios();
@@ -76,6 +79,7 @@ public class AgregarTarea extends AppCompatActivity {
         obtenerCategoria();
 
 
+        //Configuramos el boton de guardar y controlamos los campos que esten rellenos
         btnGuardarTarea.setOnClickListener(v -> {
             String nombre = etNombre.getText().toString();
             String descripcion = etDescripcionTarea.getText().toString();
@@ -98,6 +102,9 @@ public class AgregarTarea extends AppCompatActivity {
         });
     }
 
+    /**
+     * Metodo para obtener los usuarios de la base de datos y mostrarlos en el spinner
+     */
     public void obtenerUsuarios(){
         List<Usuario> listaUsuarios = appDataBase.usuariodao().obtenerUsuarios();
         ArrayAdapter<Usuario> adapterUsuario = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, listaUsuarios);
@@ -105,6 +112,9 @@ public class AgregarTarea extends AppCompatActivity {
         spinnerUsuario.setAdapter(adapterUsuario);
     }
 
+    /**
+     * Metodo para obtener las categorias de la base de datos y mostrarlas en el spinner
+     */
     public void obtenerCategoria(){
         List<Categoria> listaCategorias = appDataBase.categoriadao().obtenerCategorias();
         ArrayAdapter<Categoria> adapterCategoria = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, listaCategorias);
@@ -112,6 +122,9 @@ public class AgregarTarea extends AppCompatActivity {
         spinnerCategoria.setAdapter(adapterCategoria);
     }
 
+    /**
+     * Metodo para mostrar el datepicker al darle click en la fecha
+     */
     private void mostrarDatePicker() {
         final Calendar calendar = Calendar.getInstance();
 

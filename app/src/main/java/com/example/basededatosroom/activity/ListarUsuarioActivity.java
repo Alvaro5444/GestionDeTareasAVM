@@ -29,36 +29,47 @@ public class ListarUsuarioActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listarusuario);
 
+        // Configuramos el toolbar
         toolbar = findViewById(R.id.toolbarlistarusuario);
         toolbar.setTitle("Listado de Usuarios");
         setSupportActionBar(toolbar);
 
+        //Configuramos la flecha para atras
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
         toolbar.setNavigationOnClickListener(v -> finish());
 
+        //Configuramos el recycler view para que se vean los usuarios de la base de datos
         rvusuario = findViewById(R.id.rvuser);
         rvusuario.setLayoutManager(new LinearLayoutManager(this));
 
+        //Configuramos el boton de agregar usuario
         fabAgregarUsuario = findViewById(R.id.fabAgregarUsuario);
         fabAgregarUsuario.setOnClickListener(v ->{
             Intent intent = new Intent(this, AgregarUsuario.class);
             startActivity(intent);
         });
 
+        //Configuramos la base de datos para mostrar los usuarios
         appDatabase = AppDataBase.getInstance(this);
 
         obtenerUsuarios();
     }
 
+    /**
+     * Actualizamos la lista de usuarios
+     */
     @Override
     protected void onResume() {
         super.onResume();
         obtenerUsuarios();
     }
 
+    /**
+     * Metodo para obtener los usuarios de la base de datos y mostrarlos en el recycler view
+     */
     private void obtenerUsuarios() {
         List<Usuario> usuarios = appDatabase.usuariodao().obtenerUsuarios();
 

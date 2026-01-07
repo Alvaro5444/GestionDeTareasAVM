@@ -29,10 +29,12 @@ public class ListarCategoriaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listar_categoria);
 
+        //Configuramos el toolbar
         toolbar = findViewById(R.id.toolbarlistarcategoria);
         toolbar.setTitle("Listado Categoria");
         setSupportActionBar(toolbar);
 
+        //Configuramos la flecha para atras
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -40,25 +42,34 @@ public class ListarCategoriaActivity extends AppCompatActivity {
 
         toolbar.setNavigationOnClickListener(v -> finish());
 
+        //Configuramos el recycler view para que se vean las categorias de la base de datos
         rvcategoria = findViewById(R.id.rvcategoria);
         rvcategoria.setLayoutManager(new LinearLayoutManager(this));
 
+        //Configuramos el boton de agregar categoria
         fabAgregarCategoria = findViewById(R.id.fabAgregarCategoria);
         fabAgregarCategoria.setOnClickListener(v ->{
             Intent intent = new Intent(this, AgregarCategoria.class);
             startActivity(intent);
         });
 
+        //Configuramos la base de datos para mostrar las categorias
         appDataBase = AppDataBase.getInstance(this);
         obtenerCategoria();
     }
 
+    /**
+     * Actualizamos la lista de categorias
+     */
     @Override
     public void onResume() {
         super.onResume();
         obtenerCategoria();
     }
 
+    /**
+     * Metodo para obtener las categorias de la base de datos y mostrarlas en el recycler view
+     */
     public void obtenerCategoria(){
         List<Categoria> categorias = appDataBase.categoriadao().obtenerCategorias();
 
